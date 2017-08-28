@@ -169,8 +169,13 @@ function is_assoc(array $array)
 
 function check_reseller_subaccounts($reseller_data, $message, $reason) {
     $result = array();
-    if (is_assoc($reseller_data['accts']))
+    if (!is_array($reseller_data['accts'])) {
         return $result;
+    }
+    if (is_assoc($reseller_data['accts'])) {
+        return $result;
+    }
+
     foreach($reseller_data['accts'] as $acct) {
         if ($acct['deleted'] === '1' || $acct['suspended'] === '1')
             continue;
